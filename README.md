@@ -65,25 +65,32 @@ That's a useful, if slightly uncomfortable, insight for a retailer. It reframes 
 
 ## Visuals
 
-![Sales trend across all stores, 2010-2012](charts/01_sales_trend.png)
+<img src="charts/01_sales_trend.png" width="700">
+
 *Total sales trend across all stores, 2010–2012*
 
-![Sales distribution by store type](charts/02_sales_by_store_type.png)
+<img src="charts/02_sales_by_store_type.png" width="700">
+
 *Sales distribution by store type*
 
-![Correlation heatmap of key drivers](charts/03_correlation_heatmap.png)
+<img src="charts/03_correlation_heatmap.png" width="700">
+
 *Correlation of all key numeric drivers*
 
-![Regression coefficients](charts/04_regression_coefficients.png)
+<img src="charts/04_regression_coefficients.png" width="700">
+
 *Which features push sales up or down, and by how much*
 
-![Actual vs predicted sales](charts/05_actual_vs_predicted.png)
+<img src="charts/05_actual_vs_predicted.png" width="700">
+
 *Random Forest model fit*
 
-![Markdown sensitivity curve](charts/06_markdown_sensitivity_curve.png)
+<img src="charts/06_markdown_sensitivity_curve.png" width="700">
+
 *Predicted sales as markdown spend increases*
 
-![Marginal return curve](charts/07_marginal_return_curve.png)
+<img src="charts/07_marginal_return_curve.png" width="700">
+
 *Marginal $ return per $1 of markdown spend*
 
 ---
