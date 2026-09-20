@@ -25,7 +25,7 @@ Using 45 Walmart stores' weekly sales data, I built a regression model to figure
 
 ## Data
 
-Raw files (`train.csv`, `features.csv`, `stores.csv`) come from the [Walmart Recruiting – Store Sales Forecasting](https://www.kaggle.com/c/walmart-recruiting-store-sales-forecasting/data) Kaggle competition (also mirrored as a plain dataset [here](https://www.kaggle.com/datasets/yasserh/walmart-dataset)). They aren't checked into this repo - `train.csv` alone is ~13MB — so download them and drop them into `data/raw/` before running `analysis.py`. The cleaned, merged output (`data/merged_store_weekly.csv`) is included.
+Raw files (`train.csv`, `features.csv`, `stores.csv`) come from the [Walmart Recruiting – Store Sales Forecasting](https://www.kaggle.com/c/walmart-recruiting-store-sales-forecasting/data) Kaggle competition. 
 
 ---
 
