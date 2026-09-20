@@ -47,17 +47,17 @@ Raw files (`train.csv`, `features.csv`, `stores.csv`) come from the [Walmart Rec
 
 ### What actually drives sales
 
-- **Store size** is the single strongest driver — a 0.81 correlation with weekly sales that dwarfs everything else.
-- **Store type** matters a lot too: Type C and Type B stores show noticeably different baseline sales than Type A even after controlling for size. Worth flagging as a caveat, though — store type and size are correlated with each other in this dataset (multicollinearity), so read these coefficients directionally rather than as precise dollar effects.
-- **Holiday weeks** run about **8% higher** in average sales ($1.12M vs. $1.04M per store-week).
-- **Fuel price and unemployment** both show small negative relationships with sales.
-- **Total markdown spend** has the weakest relationship of all the numeric features tested — just a 0.23 correlation with sales. That sets up the real finding below.
+- **Store size** is the single strongest driver: A 0.81 correlation with weekly sales that dwarfs everything else.
+- **Store type** matters a lot too: Type C and Type B stores show noticeably different baseline sales than Type A even after controlling for size. Worth flagging as a caveat, though store type and size are correlated with each other in this dataset (multicollinearity), so read these coefficients directionally rather than as precise dollar effects.
+- **Holiday weeks**: They run about **8% higher** in average sales ($1.12M vs. $1.04M per store-week).
+- **Fuel price and unemployment**: Both show small negative relationships with sales.
+- **Total markdown spend**: This has the weakest relationship of all the numeric features tested. Just a 0.23 correlation with sales, which sets up the real finding below.
 
 ### The markdown sensitivity finding
 
 Across the full range of markdown spend tested (roughly $0 to $32K per store-week), the **marginal sales lift per extra $1 of markdown never crossed $1**, it averaged about **$0.17 of extra sales for every $1 spent**.
 
-In plain English: in this dataset, **markdown spend doesn't pay for itself through incremental sales alone.** It's probably doing other jobs, clearing aging inventory, matching a competitor's price, protecting market share — rather than acting as a pure revenue driver.
+In plain English: in this dataset, **markdown spend doesn't pay for itself through incremental sales alone.** It's probably doing other jobs, clearing aging inventory, matching a competitor's price, protecting market share rather than acting as a pure revenue driver.
 
 That's a useful, if slightly uncomfortable, insight for a retailer. It reframes the conversation from "markdowns increase sales" to "markdowns need to be justified on grounds other than sales lift."
 
@@ -108,6 +108,5 @@ This project is an end-to-end regression and sensitivity analysis: merging multi
 - **Power BI What-If Parameter** - rebuild the sensitivity slider as an interactive Power BI parameter for a live, clickable version of this analysis.
 
 ## Author
-**Rinit Jain**
 
 **Rinit Jain**
