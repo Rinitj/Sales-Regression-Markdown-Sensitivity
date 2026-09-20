@@ -2,7 +2,7 @@
 
 Every retailer runs markdowns. Almost none of them stop to ask if the extra sales those markdowns generate are actually worth what they cost. That's the question I set out to answer with this project.
 
-Using 45 Walmart stores' weekly sales data, I built a regression model to figure out what really drives weekly sales - then used that model to run a "what-if" sensitivity test specifically on promotional markdown spend, to see whether discounting is paying for itself.
+Using 45 Walmart stores' weekly sales data, I built a regression model to figure out what really drives weekly sales, then used that model to run a "what-if" sensitivity test specifically on promotional markdown spend, to see whether discounting is paying for itself.
 
 ---
 
