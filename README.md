@@ -1,73 +1,38 @@
-# Sales Regression & Markdown Sensitivity Analysis - Does Discounting Actually Pay Off?
+# Sales Regression & Discount Sensitivity Analysis: Does Discounting Pay Off
 
-Every retailer runs markdowns. Almost none of them stop to ask if the extra sales those markdowns generate are actually worth what they cost. That's the question I set out to answer with this project.
+## The Question Every Retailer Avoids
 
-Using 45 Walmart stores' weekly sales data, I built a regression model to figure out what really drives weekly sales, then used that model to run a "what-if" sensitivity test specifically on promotional markdown spend, to see whether discounting is paying for itself.
+Every retailer runs discounts. Almost none of them stop to ask whether the extra sales those discounts generate are actually worth what they cost. That is the question I set out to answer with this project.
 
----
+Using 45 Walmart stores' weekly sales data, I built a regression model to figure out what really drives weekly sales, then used that model to run a what if sensitivity test specifically on promotional discount spend, to see whether discounting is actually paying for itself.
 
-## Business Questions Addressed
+## Business Questions Answered
 
-1. **What drives weekly sales?** How much do store size, store type, holidays, and economic conditions matter, relative to markdowns?
-2. **Is markdown spend revenue-additive?** If we spend more on promotional discounts, does predicted sales increase enough to justify it?
-3. **Where's the point of diminishing returns?** At what markdown level does each extra dollar spent stop generating at least a dollar back in sales?
+* **Sales Drivers:** How much do store size, store type, holidays, and economic conditions matter, relative to discounts, in driving weekly sales.
+* **Revenue Additive Spend:** If the business spends more on promotional discounts, does predicted sales increase enough to justify it.
+* **Diminishing Returns:** At what discount level does each extra dollar spent stop generating at least a dollar back in sales.
 
----
+## Project Scope
 
-## Tools & Technologies
+The analysis covers two years of weekly sales data across 45 Walmart stores, combining store attributes, macroeconomic indicators, and promotional discount spend into a single store week dataset. The scope is deliberately store level rather than department level, meaning the findings describe how an entire store responds to discounting, not how any one product category does. The end goal is a working regression model that can be queried with hypothetical discount levels to see the predicted effect on sales.
 
-- **Python (Pandas)** - data merging, cleaning, feature engineering
-- **Scikit-learn** - Linear Regression (for interpretability) and Random Forest (as a stronger predictive benchmark)
-- **Matplotlib / Seaborn** - EDA and sensitivity visualizations
-- **Sensitivity / What-If Analysis** - holding real store-week feature combinations constant, varying only markdown spend, and averaging predictions to isolate its effect
+## Tools & Methodologies
 
----
+* **Python (Pandas):** data merging, cleaning, feature engineering.
+* **Scikit learn:** Linear Regression for interpretability, and Random Forest as a stronger predictive benchmark.
+* **Matplotlib / Seaborn:** EDA and sensitivity visualizations.
+* **Sensitivity / What If Analysis:** holding real store week feature combinations constant, varying only discount spend, and averaging predictions to isolate its effect.
 
-## Data
-
-Raw files (`train.csv`, `features.csv`, `stores.csv`) come from the [Walmart Recruiting – Store Sales Forecasting](https://www.kaggle.com/c/walmart-recruiting-store-sales-forecasting/data) Kaggle competition. 
-
----
-
-## Methodology
-
-1. Aggregated `train.csv` (department-level) up to store-week totals, then merged in `features.csv` (markdowns, CPI, fuel price, unemployment, temperature) and `stores.csv` (type, size).
-2. Filled missing markdown values with 0 (meaning: no promotion that week) and summed the five markdown categories into a single `Total_Markdown` feature.
-3. Trained a **Linear Regression** model for clean, interpretable coefficients, and a **Random Forest** as a stronger predictive benchmark.
-4. For the sensitivity test, took a random sample of 2,000 real store-weeks, overrode only `Total_Markdown` across a range of scenario values (holding every other real feature combination fixed), and averaged the Random Forest's predictions at each level. This isolates the markdown effect while avoiding the noisy, step-shaped curve you'd get from a single synthetic "average store" fed into a tree model.
-
----
-
-## Key Results
+## Model Performance & Key Visuals
 
 | Model | R² | MAE |
-|---|---|---|
+| :--- | :---: | :---: |
 | Linear Regression | 0.674 | $242,759 |
 | Random Forest | **0.930** | **$86,524** |
 
-### What actually drives sales
-
-- **Store size** is the single strongest driver: A 0.81 correlation with weekly sales that dwarfs everything else.
-- **Store type** matters a lot too: Type C and Type B stores show noticeably different baseline sales than Type A even after controlling for size. Worth flagging as a caveat, though store type and size are correlated with each other in this dataset (multicollinearity), so read these coefficients directionally rather than as precise dollar effects.
-- **Holiday weeks**: They run about **8% higher** in average sales ($1.12M vs. $1.04M per store-week).
-- **Fuel price and unemployment**: Both show small negative relationships with sales.
-- **Total markdown spend**: This has the weakest relationship of all the numeric features tested. Just a 0.23 correlation with sales, which sets up the real finding below.
-
-### The markdown sensitivity finding
-
-Across the full range of markdown spend tested (roughly $0 to $32K per store-week), the **marginal sales lift per extra $1 of markdown never crossed $1**, it averaged about **$0.17 of extra sales for every $1 spent**.
-
-In plain English: in this dataset, **markdown spend doesn't pay for itself through incremental sales alone.** It's probably doing other jobs, clearing aging inventory, matching a competitor's price, protecting market share rather than acting as a pure revenue driver.
-
-That's a useful, if slightly uncomfortable, insight for a retailer. It reframes the conversation from "markdowns increase sales" to "markdowns need to be justified on grounds other than sales lift."
-
----
-
-## Visuals
-
 <img src="charts/01_sales_trend.png" width="700">
 
-*Total sales trend across all stores, 2010–2012*
+*Total sales trend across all stores, 2010 to 2012*
 
 <img src="charts/02_sales_by_store_type.png" width="700">
 
@@ -87,22 +52,32 @@ That's a useful, if slightly uncomfortable, insight for a retailer. It reframes 
 
 <img src="charts/06_markdown_sensitivity_curve.png" width="700">
 
-*Predicted sales as markdown spend increases*
+*Predicted sales as discount spend increases*
 
 <img src="charts/07_marginal_return_curve.png" width="700">
 
-*Marginal $ return per $1 of markdown spend*
+*Marginal dollar return per $1 of discount spend*
 
----
+* **Store size is the single strongest driver**: a 0.81 correlation with weekly sales that dwarfs everything else.
+* **Store type matters too**: Type C and Type B stores show noticeably different baseline sales than Type A even after controlling for size, though store type and size are correlated with each other here, so these coefficients read directionally rather than as precise dollar effects.
+* **Holiday weeks run about 8% higher**: $1.12M versus $1.04M in average sales per store week.
+* **Fuel price and unemployment**: both show small negative relationships with sales.
+* **Total discount spend is the weakest numeric driver tested**: just a 0.23 correlation with sales, which sets up the real finding below.
+* **The sensitivity test result**: across the full range of discount spend tested, roughly $0 to $32K per store week, the marginal sales lift per extra dollar of discount never crossed a dollar, averaging about **$0.17 of extra sales for every $1 spent**.
+* **The reframe**: discount spend does not pay for itself through incremental sales alone in this dataset. It is probably doing other jobs, clearing aging inventory, matching a competitor's price, protecting market share, rather than acting as a pure revenue driver.
+
+## Skills Demonstrated
+
+Regression modeling, predictive benchmarking with ensemble methods, feature engineering across multi table data, sensitivity and scenario analysis, and translating a model's output into a plain business recommendation rather than stopping at prediction accuracy.
 
 ## Repository Structure
 
 ```
 project3_walmart/
 │
-├── analysis.py                       # Full pipeline: merge → EDA → model → sensitivity
+├── analysis.py                       # Full pipeline: merge, EDA, model, sensitivity
 ├── merged_store_weekly.csv           # Cleaned, merged modeling dataset
-├── markdown_sensitivity_table.csv    # Scenario-by-scenario sensitivity output
+├── markdown_sensitivity_table.csv    # Scenario by scenario sensitivity output
 ├── charts/
 │   ├── 01_sales_trend.png
 │   ├── 02_sales_by_store_type.png
@@ -114,18 +89,16 @@ project3_walmart/
 └── README.md
 ```
 
----
+## Key Takeaway
 
-## Conclusion
-
-This project is an end-to-end regression and sensitivity analysis: merging multi-table retail data, building both an interpretable model and a high-accuracy predictive one, and then actually using that model to answer a business "what-if" question instead of stopping at prediction accuracy. The headline finding that discount spend isn't reliably revenue-additive in this dataset is the kind of result that reframes a business decision, not just describes historical data.
+This is an end to end regression and sensitivity analysis: merging multi table retail data, building both an interpretable model and a high accuracy predictive one, then actually using that model to answer a business what if question instead of stopping at prediction accuracy. The headline finding, that discount spend is not reliably revenue additive in this dataset, is the kind of result that reframes a business decision rather than just describing historical data.
 
 ## Future Scope
 
-- **Category/department-level sensitivity** - markdown effectiveness likely varies a lot by department (electronics vs. groceries, for instance); this analysis is store-level only.
-- **Interaction effects** - test whether markdowns work better specifically during holiday weeks vs. regular weeks.
-- **Price elasticity** - extend this into a formal elasticity model (% change in sales per % change in effective price) instead of raw markdown dollars.
-- **Power BI What-If Parameter** - rebuild the sensitivity slider as an interactive Power BI parameter for a live, clickable version of this analysis.
+* Test category or department level sensitivity, since discount effectiveness likely varies a lot by department, electronics versus groceries for instance, and this analysis is store level only.
+* Test interaction effects, whether discounts work better specifically during holiday weeks versus regular weeks.
+* Extend this into a formal price elasticity model, percent change in sales per percent change in effective price, instead of raw discount dollars.
+* Rebuild the sensitivity slider as an interactive Power BI what if parameter for a live, clickable version of this analysis.
 
 ## Author
 
